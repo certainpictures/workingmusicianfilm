@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=Inter:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=EB+Garamond:ital,wght@1,400;1,500&family=Inter:wght@500&display=swap" rel="stylesheet">
 <style>
   @font-face {
     font-family: "ABC Diatype";
@@ -34,10 +34,13 @@
     --ink: #24303b;
     --soft: #5b6670;
     --rule: rgba(35, 57, 78, .2);
-    --outside: #142230;      /* colour around the page on wide screens */
+    --outside: #c5cfd8;      /* colour around the page on wide screens */
     --overlay: rgba(20, 34, 48, .75);  /* trailer pop-up backdrop, 75% */
     --sans: "ABC Diatype", "Inter", "Helvetica Neue", Arial, sans-serif;
     --condensed: "acumin-pro-condensed", "Archivo", "Arial Narrow", sans-serif;
+    /* Titles: italic serif to match "Bach Plays the Berkshires" on the title card.
+       EB Garamond is a free stand-in; put the title card's serif first in this list once it's on the site. */
+    --serif: "EB Garamond", Garamond, "Times New Roman", serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; background: var(--outside); }
@@ -46,11 +49,11 @@
   a:hover { color: var(--navy); text-decoration-color: var(--navy); }
   img, video { display: block; max-width: 100%; }
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-  .page { max-width: 80rem; margin: 0 auto; background: var(--ivory); min-height: 100vh; box-shadow: 0 0 60px rgba(0,0,0,.35); }
-  .wrap { max-width: 72rem; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+  .page { max-width: 90rem; margin: 0 auto; background: var(--ivory); min-height: 100vh; box-shadow: 0 0 40px rgba(35,57,78,.18); }
+  .wrap { max-width: 82rem; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
   .cond { font-family: var(--condensed); font-weight: 900; font-stretch: 75%; text-transform: uppercase; letter-spacing: .03em; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .label { font-size: 1rem; color: var(--navy); margin-bottom: 2rem; }
+  .label { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; color: var(--navy); margin-bottom: 1.75rem; }
   main > section { padding: 5rem 0; }
   main > section + section { border-top: 1px solid var(--rule); }
 
@@ -63,7 +66,9 @@
   .reel { position: relative; aspect-ratio: 2.4 / 1; overflow: hidden; background: var(--navy); }
   .reel video, .reel > img { width: 100%; height: 100%; object-fit: cover; }
   .reel > img { display: none; }
-  .reel__toggle { position: absolute; right: 1rem; bottom: 1rem; background: rgba(0,0,0,.45); color: var(--ivory); border: 1px solid rgba(253,251,239,.35); font-size: .8rem; padding: .35rem .75rem; cursor: pointer; }
+  .reel__title { position: absolute; left: 0; right: 0; bottom: 0; padding: 4rem 1.5rem 1.25rem; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.55)); pointer-events: none; }
+  .reel__title p { max-width: 79rem; margin: 0 auto; font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.2rem, 2.6vw, 2.2rem); line-height: 1.15; color: var(--ivory); padding-right: 6rem; }
+  .reel__toggle { z-index: 1; position: absolute; right: 1rem; bottom: 1rem; background: rgba(0,0,0,.45); color: var(--ivory); border: 1px solid rgba(253,251,239,.35); font-size: .8rem; padding: .35rem .75rem; cursor: pointer; }
   @media (max-width: 699px) {
     .reel { aspect-ratio: 3 / 2; }
     .reel video, .reel__toggle { display: none; }
@@ -73,7 +78,7 @@
   /* Trailer */
   .trailer-label { margin-bottom: 1rem; }
   .thumb { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
-  .thumb img { width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; transition: filter .3s; }
+  .thumb img { width: 100%; height: auto; transition: filter .3s; }
   .thumb:hover img { filter: brightness(1.1); }
   .thumb__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: clamp(2.75rem, 5vw, 4rem); height: clamp(2.75rem, 5vw, 4rem); border-radius: 50%; background: var(--gold); display: grid; place-items: center; box-shadow: 0 3px 16px rgba(0,0,0,.35); transition: transform .2s; }
   .thumb__play svg { width: 34%; height: 34%; fill: var(--navy); margin-left: 9%; }
@@ -91,7 +96,7 @@
   /* Director's statement */
   .statement p { max-width: 44rem; }
   .statement p + p { margin-top: 1.25rem; }
-  .statement .signature { margin-top: 2rem; color: var(--navy); }
+  .statement .signature { margin-top: 2rem; font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--navy); }
 
   /* Screenings */
   .screenings ul { list-style: none; border-top: 1px solid var(--rule); }
@@ -135,6 +140,7 @@
 <div class="reel">
   <video id="reel" muted loop playsinline preload="none" poster="media/reel-poster.jpg" aria-label="Silent reel of footage from the film"></video>
   <img src="media/header-mobile.jpg" alt="">
+  <div class="reel__title"><p>Working Musician: Bach Plays the Berkshires</p></div>
   <button class="reel__toggle cond" id="reelToggle" type="button">Pause</button>
 </div>
 
@@ -144,7 +150,7 @@
   <!-- TRAILER: media/trailer-thumb.jpg at 2.4:1 -->
   <section aria-label="Trailer">
     <div class="wrap">
-      <h2 class="cond label trailer-label">Watch the Trailer</h2>
+      <h2 class="label trailer-label">Watch the Trailer</h2>
       <button class="thumb" id="openTrailer" type="button" aria-label="Play the trailer">
         <img src="media/trailer-thumb.jpg" alt="">
         <span class="thumb__play"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></span>
@@ -160,7 +166,7 @@
   <!-- SYNOPSIS -->
   <section aria-labelledby="synopsis-h">
     <div class="wrap">
-      <h2 class="cond label" id="synopsis-h">Synopsis</h2>
+      <h2 class="sr-only" id="synopsis-h">Synopsis</h2>
       <p class="lead"><i>Working Musician: Bach Plays the Berkshires</i> is a short film about the evolving significance of J.S. Bach&rsquo;s music in today&rsquo;s culture, told through the lens of the Berkshire Bach Society.</p>
       <div class="columns">
         <p>The film features interviews with pianist Simone Dinnerstein, BBS Artistic Director and violinist Eugene Drucker, composer Bruce Adolphe, and critic Tim Page on what makes Bach&rsquo;s music important for modern listeners. It includes revealing anecdotes from Bach&rsquo;s life and follows the preparations for Berkshire Bach&rsquo;s signature series Bach at New Year&rsquo;s featuring the six Brandenburg Concertos.</p>
@@ -173,29 +179,29 @@
   <!-- DIRECTOR'S STATEMENT -->
   <section class="statement" aria-labelledby="statement-h">
     <div class="wrap">
-      <h2 class="cond label" id="statement-h">Director&rsquo;s Statement</h2>
+      <h2 class="label" id="statement-h">Director&rsquo;s Statement</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p class="signature cond">Anthony Rossello, Director</p>
+      <p class="signature">Anthony Rossello, Director</p>
     </div>
   </section>
 
   <!-- SCREENINGS: one <li> per screening; move entries to Past after they happen -->
   <section class="screenings" aria-labelledby="screenings-h">
     <div class="wrap">
-      <h2 class="cond label" id="screenings-h">Upcoming Screenings</h2>
+      <h2 class="label" id="screenings-h">Upcoming Screenings</h2>
       <ul>
         <li>
-          <span class="cond date">Jan 30, 2027</span>
+          <span class="date">Jan 30, 2027</span>
           <span>Linde Center at Tanglewood, Lenox, MA</span>
           <span class="note">Premiere, with live performance and Q&amp;A</span>
         </li>
       </ul>
       <!-- PAST SCREENINGS: uncomment once there are some
-      <h3 class="cond label">Past Screenings</h3>
+      <h3 class="label">Past Screenings</h3>
       <ul>
         <li>
-          <span class="cond date">Month DD, YYYY</span>
+          <span class="date">Month DD, YYYY</span>
           <span><a href="https://festival-page-for-the-film">Festival or venue name</a></span>
           <span class="note">City, State</span>
         </li>
@@ -219,7 +225,7 @@
 
 <footer>
   <div class="wrap">
-    <h2 class="cond label">Contact</h2>
+    <h2 class="label">Contact</h2>
     <!-- EMAIL: placeholder until Email Routing is set up -->
     <a class="email" href="mailto:info@workingmusicianfilm.com">info@workingmusicianfilm.com</a>
     <div class="base">
