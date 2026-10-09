@@ -34,16 +34,19 @@
     --ink: #24303b;
     --soft: #5b6670;
     --rule: rgba(35, 57, 78, .2);
+    --outside: #142230;      /* colour around the page on wide screens */
+    --overlay: rgba(20, 34, 48, .75);  /* trailer pop-up backdrop, 75% */
     --sans: "ABC Diatype", "Inter", "Helvetica Neue", Arial, sans-serif;
     --condensed: "acumin-pro-condensed", "Archivo", "Arial Narrow", sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { -webkit-text-size-adjust: 100%; background: var(--ivory); }
-  body { font-family: var(--sans); font-weight: 500; color: var(--ink); background: var(--ivory); font-size: 1.05rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  html { -webkit-text-size-adjust: 100%; background: var(--outside); }
+  body { font-family: var(--sans); font-weight: 500; color: var(--ink); background: var(--outside); font-size: 1.05rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-underline-offset: 3px; text-decoration-color: var(--rule); }
   a:hover { color: var(--navy); text-decoration-color: var(--navy); }
   img, video { display: block; max-width: 100%; }
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .page { max-width: 80rem; margin: 0 auto; background: var(--ivory); min-height: 100vh; box-shadow: 0 0 60px rgba(0,0,0,.35); }
   .wrap { max-width: 72rem; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
   .cond { font-family: var(--condensed); font-weight: 900; font-stretch: 75%; text-transform: uppercase; letter-spacing: .03em; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -57,21 +60,22 @@
   .banner img { height: 2.6rem; width: auto; }
 
   /* Silent reel: video on wide screens, still image on phones */
-  .reel { position: relative; height: min(80svh, 56.25vw); min-height: 20rem; overflow: hidden; background: var(--navy); }
+  .reel { position: relative; aspect-ratio: 2.4 / 1; overflow: hidden; background: var(--navy); }
   .reel video, .reel > img { width: 100%; height: 100%; object-fit: cover; }
   .reel > img { display: none; }
   .reel__toggle { position: absolute; right: 1rem; bottom: 1rem; background: rgba(0,0,0,.45); color: var(--ivory); border: 1px solid rgba(253,251,239,.35); font-size: .8rem; padding: .35rem .75rem; cursor: pointer; }
   @media (max-width: 699px) {
-    .reel { height: auto; aspect-ratio: 1 / 1; min-height: 0; }
+    .reel { aspect-ratio: 3 / 2; }
     .reel video, .reel__toggle { display: none; }
     .reel > img { display: block; }
   }
 
   /* Trailer */
+  .trailer-label { margin-bottom: 1rem; }
   .thumb { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
   .thumb img { width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; transition: filter .3s; }
   .thumb:hover img { filter: brightness(1.1); }
-  .thumb__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: clamp(3.5rem, 8vw, 6rem); height: clamp(3.5rem, 8vw, 6rem); border-radius: 50%; background: var(--gold); display: grid; place-items: center; box-shadow: 0 4px 24px rgba(0,0,0,.35); transition: transform .2s; }
+  .thumb__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: clamp(2.75rem, 5vw, 4rem); height: clamp(2.75rem, 5vw, 4rem); border-radius: 50%; background: var(--gold); display: grid; place-items: center; box-shadow: 0 3px 16px rgba(0,0,0,.35); transition: transform .2s; }
   .thumb__play svg { width: 34%; height: 34%; fill: var(--navy); margin-left: 9%; }
   .thumb:hover .thumb__play { transform: translate(-50%, -50%) scale(1.08); }
   .laurels { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.5rem 2.5rem; margin-top: 3.5rem; }
@@ -107,14 +111,15 @@
   footer .base { margin-top: 3.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem; font-size: .9rem; color: var(--soft); }
 
   /* Trailer pop-up */
-  .modal { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.95); display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+  .modal { position: fixed; inset: 0; z-index: 30; background: var(--overlay); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 1.5rem; }
   .modal.open { display: flex; }
   .modal__frame { width: min(100%, 72rem, calc((100svh - 6rem) * 16 / 9)); aspect-ratio: 16 / 9; }
-  .modal__frame iframe { width: 100%; height: 100%; border: 0; }
+  .modal__frame iframe { width: 100%; height: 100%; border: 0; box-shadow: 0 10px 50px rgba(0,0,0,.5); }
   .modal__close { position: absolute; top: calc(1rem + env(safe-area-inset-top, 0px)); right: 1.25rem; background: none; border: 0; color: var(--ivory); font-size: 1rem; cursor: pointer; padding: .5rem; }
 </style>
 </head>
 <body>
+<div class="page">
 
 <!-- TOP BANNER -->
 <header class="banner">
@@ -124,8 +129,9 @@
 </header>
 
 <!-- SILENT REEL
-     Wide screens: media/reel.mp4, with media/reel-poster.jpg while it loads.
-     Phones: media/header-mobile.jpg (square still; the reel isn't downloaded on phones). -->
+     Shown at 2.4:1. Export media/reel.mp4 at 1920x800 (H.264, no audio, under 25 MB)
+     and media/reel-poster.jpg at 1920x800.
+     Phones: media/header-mobile.jpg at 3:2, e.g. 1200x800 (the reel isn't downloaded on phones). -->
 <div class="reel">
   <video id="reel" muted loop playsinline preload="none" poster="media/reel-poster.jpg" aria-label="Silent reel of footage from the film"></video>
   <img src="media/header-mobile.jpg" alt="">
@@ -138,6 +144,7 @@
   <!-- TRAILER: media/trailer-thumb.jpg at 2.4:1 -->
   <section aria-label="Trailer">
     <div class="wrap">
+      <h2 class="cond label trailer-label">Watch the Trailer</h2>
       <button class="thumb" id="openTrailer" type="button" aria-label="Play the trailer">
         <img src="media/trailer-thumb.jpg" alt="">
         <span class="thumb__play"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></span>
@@ -221,6 +228,7 @@
     </div>
   </div>
 </footer>
+</div><!-- /page -->
 
 <div class="modal" id="trailerModal" role="dialog" aria-modal="true" aria-label="Trailer">
   <button class="modal__close cond" id="closeTrailer" type="button">Close</button>
