@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=EB+Garamond:ital,wght@1,400;1,500&family=Inter:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=Inter:wght@500&display=swap" rel="stylesheet">
 <style>
   @font-face {
     font-family: "ABC Diatype";
@@ -38,9 +38,8 @@
     --overlay: rgba(20, 34, 48, .75);  /* trailer pop-up backdrop, 75% */
     --sans: "ABC Diatype", "Inter", "Helvetica Neue", Arial, sans-serif;
     --condensed: "acumin-pro-condensed", "Archivo", "Arial Narrow", sans-serif;
-    /* Titles: italic serif to match "Bach Plays the Berkshires" on the title card.
-       EB Garamond is a free stand-in; put the title card's serif first in this list once it's on the site. */
-    --serif: "EB Garamond", Garamond, "Times New Roman", serif;
+    /* Title font: set by TITLE_FONT in the script at the bottom of the page */
+    --serif: "EB Garamond", Georgia, serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; background: var(--outside); }
@@ -53,7 +52,7 @@
   .wrap { max-width: 82rem; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
   .cond { font-family: var(--condensed); font-weight: 900; font-stretch: 75%; text-transform: uppercase; letter-spacing: .03em; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .label { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; color: var(--navy); margin-bottom: 1.75rem; }
+  .label { font-family: var(--serif); font-weight: var(--serif-weight, 500); font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; color: var(--navy); margin-bottom: 1.75rem; }
   main > section { padding: 5rem 0; }
   main > section + section { border-top: 1px solid var(--rule); }
 
@@ -67,7 +66,7 @@
   .reel video, .reel > img { width: 100%; height: 100%; object-fit: cover; }
   .reel > img { display: none; }
   .reel__title { position: absolute; left: 0; right: 0; bottom: 0; padding: 4rem 1.5rem 1.25rem; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.55)); pointer-events: none; }
-  .reel__title p { max-width: 79rem; margin: 0 auto; font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.2rem, 2.6vw, 2.2rem); line-height: 1.15; color: var(--ivory); padding-right: 6rem; }
+  .reel__title p { max-width: 79rem; margin: 0 auto; font-family: var(--serif); font-weight: var(--serif-weight, 500); font-size: clamp(1.2rem, 2.6vw, 2.2rem); line-height: 1.15; color: var(--ivory); padding-right: 6rem; }
   .reel__toggle { z-index: 1; position: absolute; right: 1rem; bottom: 1rem; background: rgba(0,0,0,.45); color: var(--ivory); border: 1px solid rgba(253,251,239,.35); font-size: .8rem; padding: .35rem .75rem; cursor: pointer; }
   @media (max-width: 699px) {
     .reel { aspect-ratio: 3 / 2; }
@@ -96,7 +95,7 @@
   /* Director's statement */
   .statement p { max-width: 44rem; }
   .statement p + p { margin-top: 1.25rem; }
-  .statement .signature { margin-top: 2rem; font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--navy); }
+  .statement .signature { margin-top: 2rem; font-family: var(--serif); font-weight: var(--serif-weight, 500); font-size: 1.3rem; color: var(--navy); }
 
   /* Screenings */
   .screenings ul { list-style: none; border-top: 1px solid var(--rule); }
@@ -242,8 +241,36 @@
 </div>
 
 <script>
-  // YouTube video ID of the trailer (the part after watch?v=)
+  // ===== SETTINGS =====
+  // Trailer: if TRAILER_FILE is set (e.g. "media/trailer.mp4"), the pop-up uses the browser's own
+  // player with no YouTube branding. Leave it empty to use YouTube.
+  const TRAILER_FILE = "";
   const TRAILER_YOUTUBE_ID = "Rj8-F4-K7xs";
+
+  // Title font. Options: ebgaramond, newsreader, instrument, sourceserif, diatype, acumin
+  // Test any of them without editing: add ?titlefont=newsreader to the page address.
+  const TITLE_FONT = "ebgaramond";
+
+  const FONTS = {
+    ebgaramond:  { family: '"EB Garamond", Georgia, serif',          weight: 500, google: "EB+Garamond:wght@500" },
+    newsreader:  { family: '"Newsreader", Georgia, serif',           weight: 500, google: "Newsreader:opsz,wght@6..72,500" },
+    instrument:  { family: '"Instrument Serif", Georgia, serif',     weight: 400, google: "Instrument+Serif" },
+    sourceserif: { family: '"Source Serif 4", Georgia, serif',       weight: 600, google: "Source+Serif+4:opsz,wght@8..60,600" },
+    diatype:     { family: '"ABC Diatype", "Inter", Arial, sans-serif', weight: 500, google: null },
+    acumin:      { family: '"acumin-pro", "Archivo", Arial, sans-serif', weight: 600, google: "Archivo:wght@600" }
+  };
+  (function () {
+    const pick = new URLSearchParams(location.search).get("titlefont") || TITLE_FONT;
+    const f = FONTS[pick] || FONTS[TITLE_FONT];
+    if (f.google) {
+      const l = document.createElement("link");
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=" + f.google + "&display=swap";
+      document.head.appendChild(l);
+    }
+    document.documentElement.style.setProperty("--serif", f.family);
+    document.documentElement.style.setProperty("--serif-weight", f.weight);
+  })();
 
   // Reel: only loaded on wide screens; paused for reduced-motion users
   const reel = document.getElementById("reel");
@@ -264,8 +291,10 @@
   const openBtn = document.getElementById("openTrailer");
   let reelWasPlaying = false;
   function openTrailer() {
-    frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + TRAILER_YOUTUBE_ID +
-      '?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="Working Musician trailer"></iframe>';
+    frame.innerHTML = TRAILER_FILE
+      ? '<video src="' + TRAILER_FILE + '" controls playsinline preload="metadata" poster="media/trailer-thumb.jpg" style="width:100%;height:100%;background:#000"></video>'
+      : '<iframe src="https://www.youtube-nocookie.com/embed/' + TRAILER_YOUTUBE_ID +
+        '?rel=0" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="Working Musician trailer"></iframe>';
     reelWasPlaying = !reel.paused; reel.pause();
     modal.classList.add("open"); document.body.style.overflow = "hidden";
     document.getElementById("closeTrailer").focus();
