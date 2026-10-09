@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Working Musician: Bach Plays the Berkshires</title>
+<meta name="description" content="A short film about the evolving significance of J.S. Bach's music in today's culture, told through the lens of the Berkshire Bach Society.">
+<meta property="og:title" content="Working Musician: Bach Plays the Berkshires">
+<meta property="og:description" content="A short film about the evolving significance of J.S. Bach's music in today's culture, told through the lens of the Berkshire Bach Society.">
+<meta property="og:image" content="https://workingmusicianfilm.com/media/trailer-thumb.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#23394e">
+<!-- FONTS
+     Acumin Pro Condensed Black: Adobe Fonts web project with Acumin Pro Condensed (Black, 900),
+     domain set to workingmusicianfilm.com. Replace XXXXXXX with the project's kit ID.
+     ABC Diatype Medium: web-licensed ABCDiatype-Medium.woff2 in public/fonts/.
+     Until then the page falls back to Archivo and Inter. -->
+<link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "ABC Diatype";
+    src: url("fonts/ABCDiatype-Medium.woff2") format("woff2");
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  :root {
+    /* From the title cards */
+    --navy: #23394e;
+    --ivory: #fdfbef;
+    --gold: #e0b748;
+    --ink: #24303b;
+    --soft: #5b6670;
+    --rule: rgba(35, 57, 78, .2);
+    --sans: "ABC Diatype", "Inter", "Helvetica Neue", Arial, sans-serif;
+    --condensed: "acumin-pro-condensed", "Archivo", "Arial Narrow", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; background: var(--ivory); }
+  body { font-family: var(--sans); font-weight: 500; color: var(--ink); background: var(--ivory); font-size: 1.05rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+  a:hover { color: var(--navy); text-decoration-color: var(--navy); }
+  img, video { display: block; max-width: 100%; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .wrap { max-width: 72rem; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+  .cond { font-family: var(--condensed); font-weight: 900; font-stretch: 75%; text-transform: uppercase; letter-spacing: .03em; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .label { font-size: 1rem; color: var(--navy); margin-bottom: 2rem; }
+  main > section { padding: 5rem 0; }
+  main > section + section { border-top: 1px solid var(--rule); }
+
+  /* Top banner */
+  .banner { background: var(--navy); padding-top: env(safe-area-inset-top, 0px); }
+  .banner .wrap { height: 4.5rem; display: flex; align-items: center; }
+  .banner img { height: 2.6rem; width: auto; }
+
+  /* Silent reel: video on wide screens, still image on phones */
+  .reel { position: relative; height: min(80svh, 56.25vw); min-height: 20rem; overflow: hidden; background: var(--navy); }
+  .reel video, .reel > img { width: 100%; height: 100%; object-fit: cover; }
+  .reel > img { display: none; }
+  .reel__toggle { position: absolute; right: 1rem; bottom: 1rem; background: rgba(0,0,0,.45); color: var(--ivory); border: 1px solid rgba(253,251,239,.35); font-size: .8rem; padding: .35rem .75rem; cursor: pointer; }
+  @media (max-width: 699px) {
+    .reel { height: auto; aspect-ratio: 1 / 1; min-height: 0; }
+    .reel video, .reel__toggle { display: none; }
+    .reel > img { display: block; }
+  }
+
+  /* Trailer */
+  .thumb { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+  .thumb img { width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; transition: filter .3s; }
+  .thumb:hover img { filter: brightness(1.1); }
+  .thumb__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: clamp(3.5rem, 8vw, 6rem); height: clamp(3.5rem, 8vw, 6rem); border-radius: 50%; background: var(--gold); display: grid; place-items: center; box-shadow: 0 4px 24px rgba(0,0,0,.35); transition: transform .2s; }
+  .thumb__play svg { width: 34%; height: 34%; fill: var(--navy); margin-left: 9%; }
+  .thumb:hover .thumb__play { transform: translate(-50%, -50%) scale(1.08); }
+  .laurels { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.5rem 2.5rem; margin-top: 3.5rem; }
+  .laurels img { height: 4.5rem; width: auto; }
+
+  /* Synopsis */
+  .lead { font-size: clamp(1.45rem, 2.8vw, 2.1rem); line-height: 1.25; letter-spacing: -.015em; max-width: 52rem; color: var(--navy); }
+  .lead i { font-style: italic; }
+  .columns { margin-top: 2.5rem; }
+  .columns p { max-width: 38rem; margin-bottom: 1.25rem; break-inside: avoid; }
+  @media (min-width: 52rem) { .columns { columns: 2; column-gap: 4rem; } .columns p { max-width: none; } }
+
+  /* Director's statement */
+  .statement p { max-width: 44rem; }
+  .statement p + p { margin-top: 1.25rem; }
+  .statement .signature { margin-top: 2rem; color: var(--navy); }
+
+  /* Screenings */
+  .screenings ul { list-style: none; border-top: 1px solid var(--rule); }
+  .screenings li { display: grid; gap: .15rem 2rem; padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+  .screenings .date { color: var(--navy); }
+  .screenings .note { color: var(--soft); }
+  .screenings h3 { margin-top: 3rem; }
+  @media (min-width: 52rem) { .screenings li { grid-template-columns: 11rem 1fr 1fr; align-items: baseline; } }
+
+  /* Credits */
+  .billing p { max-width: 54rem; margin: 0 auto; text-align: center; font-size: clamp(1rem, 2.2vw, 1.4rem); line-height: 1.4; color: var(--navy); }
+  .billing small { font-size: .55em; letter-spacing: .1em; vertical-align: .2em; margin: 0 .3em; color: var(--soft); }
+
+  /* Contact */
+  footer { border-top: 1px solid var(--rule); padding: 4rem 0 calc(2.5rem + env(safe-area-inset-bottom, 0px)); }
+  footer .email { font-size: clamp(1.2rem, 2.5vw, 1.6rem); color: var(--navy); }
+  footer .base { margin-top: 3.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem; font-size: .9rem; color: var(--soft); }
+
+  /* Trailer pop-up */
+  .modal { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.95); display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+  .modal.open { display: flex; }
+  .modal__frame { width: min(100%, 72rem, calc((100svh - 6rem) * 16 / 9)); aspect-ratio: 16 / 9; }
+  .modal__frame iframe { width: 100%; height: 100%; border: 0; }
+  .modal__close { position: absolute; top: calc(1rem + env(safe-area-inset-top, 0px)); right: 1.25rem; background: none; border: 0; color: var(--ivory); font-size: 1rem; cursor: pointer; padding: .5rem; }
+</style>
+</head>
+<body>
+
+<!-- TOP BANNER -->
+<header class="banner">
+  <div class="wrap">
+    <img src="media/logo-title.png" alt="Working Musician">
+  </div>
+</header>
+
+<!-- SILENT REEL
+     Wide screens: media/reel.mp4, with media/reel-poster.jpg while it loads.
+     Phones: media/header-mobile.jpg (square still; the reel isn't downloaded on phones). -->
+<div class="reel">
+  <video id="reel" muted loop playsinline preload="none" poster="media/reel-poster.jpg" aria-label="Silent reel of footage from the film"></video>
+  <img src="media/header-mobile.jpg" alt="">
+  <button class="reel__toggle cond" id="reelToggle" type="button">Pause</button>
+</div>
+
+<main>
+  <h1 class="sr-only">Working Musician: Bach Plays the Berkshires</h1>
+
+  <!-- TRAILER: media/trailer-thumb.jpg at 2.4:1 -->
+  <section aria-label="Trailer">
+    <div class="wrap">
+      <button class="thumb" id="openTrailer" type="button" aria-label="Play the trailer">
+        <img src="media/trailer-thumb.jpg" alt="">
+        <span class="thumb__play"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></span>
+      </button>
+      <!-- LAURELS: uncomment and add files to media/laurels/ when there are selections
+      <div class="laurels">
+        <img src="media/laurels/festival-name.png" alt="Official Selection, Festival Name 2027">
+      </div>
+      -->
+    </div>
+  </section>
+
+  <!-- SYNOPSIS -->
+  <section aria-labelledby="synopsis-h">
+    <div class="wrap">
+      <h2 class="cond label" id="synopsis-h">Synopsis</h2>
+      <p class="lead"><i>Working Musician: Bach Plays the Berkshires</i> is a short film about the evolving significance of J.S. Bach&rsquo;s music in today&rsquo;s culture, told through the lens of the Berkshire Bach Society.</p>
+      <div class="columns">
+        <p>The film features interviews with pianist Simone Dinnerstein, BBS Artistic Director and violinist Eugene Drucker, composer Bruce Adolphe, and critic Tim Page on what makes Bach&rsquo;s music important for modern listeners. It includes revealing anecdotes from Bach&rsquo;s life and follows the preparations for Berkshire Bach&rsquo;s signature series Bach at New Year&rsquo;s featuring the six Brandenburg Concertos.</p>
+        <p>Moving between rehearsals, performances, backstage spaces, and animation, the film reveals the curiosity, negotiation, and discovery behind music that can appear fixed on the page but changes each time musicians come together to play it.</p>
+        <p>The piece gives the organization a way to communicate its artistic identity beyond a conventional institutional profile. It can support audience development, fundraising, partnerships, presentations, and public relations while standing on its own as a film about music, creativity, collaboration, and the endurance of cultural work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIRECTOR'S STATEMENT -->
+  <section class="statement" aria-labelledby="statement-h">
+    <div class="wrap">
+      <h2 class="cond label" id="statement-h">Director&rsquo;s Statement</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p class="signature cond">Anthony Rossello, Director</p>
+    </div>
+  </section>
+
+  <!-- SCREENINGS: one <li> per screening; move entries to Past after they happen -->
+  <section class="screenings" aria-labelledby="screenings-h">
+    <div class="wrap">
+      <h2 class="cond label" id="screenings-h">Upcoming Screenings</h2>
+      <ul>
+        <li>
+          <span class="cond date">Jan 30, 2027</span>
+          <span>Linde Center at Tanglewood, Lenox, MA</span>
+          <span class="note">Premiere, with live performance and Q&amp;A</span>
+        </li>
+      </ul>
+      <!-- PAST SCREENINGS: uncomment once there are some
+      <h3 class="cond label">Past Screenings</h3>
+      <ul>
+        <li>
+          <span class="cond date">Month DD, YYYY</span>
+          <span><a href="https://festival-page-for-the-film">Festival or venue name</a></span>
+          <span class="note">City, State</span>
+        </li>
+      </ul>
+      -->
+    </div>
+  </section>
+
+  <!-- CREDITS -->
+  <section class="billing" aria-label="Credits">
+    <div class="wrap">
+      <p class="cond">
+        Berkshire Bach Society <small>presents</small> <small>a</small> Certain Pictures <small>film</small>
+        &ldquo;Working Musician: Bach Plays the Berkshires&rdquo;
+        <small>featuring</small> Simone Dinnerstein Eugene Drucker Bruce Adolphe Tim Page
+        <small>directed by</small> Anthony Rossello
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2 class="cond label">Contact</h2>
+    <!-- EMAIL: placeholder until Email Routing is set up -->
+    <a class="email" href="mailto:info@workingmusicianfilm.com">info@workingmusicianfilm.com</a>
+    <div class="base">
+      <span>&copy; 2026 Certain Pictures</span>
+      <a href="https://certainpictures.com">certainpictures.com</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="trailerModal" role="dialog" aria-modal="true" aria-label="Trailer">
+  <button class="modal__close cond" id="closeTrailer" type="button">Close</button>
+  <div class="modal__frame" id="trailerFrame"></div>
+</div>
+
+<script>
+  // YouTube video ID of the trailer (the part after watch?v=)
+  const TRAILER_YOUTUBE_ID = "Rj8-F4-K7xs";
+
+  // Reel: only loaded on wide screens; paused for reduced-motion users
+  const reel = document.getElementById("reel");
+  const toggle = document.getElementById("reelToggle");
+  function setReel(play) {
+    play ? reel.play().catch(() => {}) : reel.pause();
+    toggle.textContent = play ? "Pause" : "Play";
+  }
+  if (window.matchMedia("(min-width: 700px)").matches) {
+    reel.src = "media/reel.mp4";
+    setReel(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }
+  toggle.addEventListener("click", () => setReel(reel.paused));
+
+  // Trailer pop-up
+  const modal = document.getElementById("trailerModal");
+  const frame = document.getElementById("trailerFrame");
+  const openBtn = document.getElementById("openTrailer");
+  let reelWasPlaying = false;
+  function openTrailer() {
+    frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + TRAILER_YOUTUBE_ID +
+      '?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="Working Musician trailer"></iframe>';
+    reelWasPlaying = !reel.paused; reel.pause();
+    modal.classList.add("open"); document.body.style.overflow = "hidden";
+    document.getElementById("closeTrailer").focus();
+  }
+  function closeTrailer() {
+    modal.classList.remove("open"); frame.innerHTML = ""; document.body.style.overflow = "";
+    if (reelWasPlaying) reel.play().catch(() => {});
+    openBtn.focus();
+  }
+  openBtn.addEventListener("click", openTrailer);
+  document.getElementById("closeTrailer").addEventListener("click", closeTrailer);
+  modal.addEventListener("click", e => { if (e.target === modal) closeTrailer(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && modal.classList.contains("open")) closeTrailer(); });
+</script>
+</body>
+</html>
