@@ -55,7 +55,8 @@
   .label { font-family: var(--serif); font-weight: var(--serif-weight, 500); font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; color: var(--navy); margin-bottom: 1.75rem; }
   main > section { padding: 5rem 0; }
   main > section + section { border-top: 1px solid var(--rule); }
-
+  main > section:first-of-type { padding-top: 7rem; }
+     
   /* Top banner */
   .banner { background: var(--navy); padding-top: env(safe-area-inset-top, 0px); }
   .banner .wrap { height: 4.5rem; display: flex; align-items: center; }
@@ -88,10 +89,10 @@
   .laurels img { height: 4.5rem; width: auto; }
 
   /* Synopsis */
-  .lead { font-size: clamp(1.45rem, 2.8vw, 2.1rem); line-height: 1.25; letter-spacing: -.015em; max-width: 52rem; color: var(--navy); }
+  .lead { font-size: clamp(1.45rem, 2.8vw, 2.1rem); line-height: 1.25; letter-spacing: -.015em; max-width: 44rem; margin:0 auto; color: var(--navy); }
   .lead i { font-style: italic; }
-  .columns { margin-top: 2.5rem; }
-  .columns p { max-width: 38rem; margin-bottom: 1.25rem; break-inside: avoid; }
+  .columns { max-width: 44rem; margin: 2.5rem auto 0; }
+  .columns p + p { margin-top: 1.25rem; }
   @media (min-width: 52rem) { .columns { columns: 2; column-gap: 4rem; } .columns p { max-width: none; } }
 
   /* Director's statement */
