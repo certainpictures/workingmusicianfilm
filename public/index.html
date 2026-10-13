@@ -63,6 +63,15 @@
   .banner .wrap { height: 4.5rem; display: flex; align-items: center; }
   .banner img { height: 2.6rem; width: auto; }
 
+  /* Menu */
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  .banner .wrap { justify-content: space-between; gap: 1.5rem; }
+  .menu { display: flex; gap: 2rem; list-style: none; }
+  .menu a { color: var(--ivory); text-decoration: none; font-size: .95rem; padding: .25rem 0; border-bottom: 1px solid transparent; }
+  .menu a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+  @media (max-width: 480px) { .menu { gap: 1.1rem; } .menu a { font-size: .85rem; } }
+
   /* Silent reel: video on wide screens, still image on phones */
   .reel { position: relative; aspect-ratio: 2.39 / 1; overflow: hidden; background: var(--navy); }
   .reel video, .reel > img { width: 100%; height: 100%; object-fit: cover; }
@@ -132,9 +141,16 @@
 <header class="banner">
   <div class="wrap">
     <img src="media/logo-title.png" alt="Working Musician">
+    <nav aria-label="Sections">
+      <ul class="menu">
+        <li><a href="#trailer">Trailer</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#screenings">Screenings</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
-
+     
 <!-- SILENT REEL
      Shown at 2.4:1. Export media/reel.mp4 at 1920x800 (H.264, no audio, under 25 MB)
      and media/reel-poster.jpg at 1920x800.
@@ -150,7 +166,7 @@
   <h1 class="sr-only">Working Musician: Bach Plays the Berkshires</h1>
 
   <!-- TRAILER: media/trailer-thumb.jpg at 2.4:1 -->
-  <section aria-label="Trailer">
+  <section id="trailer" aria-label="Trailer">
     <div class="wrap">
       <h2 class="label trailer-label">Watch the Trailer</h2>
       <button class="thumb" id="openTrailer" type="button" aria-label="Play the trailer">
@@ -166,7 +182,7 @@
   </section>
 
   <!-- SYNOPSIS -->
-  <section aria-labelledby="synopsis-h">
+  <section id="about" aria-labelledby="synopsis-h">
     <div class="wrap">
       <h2 class="sr-only" id="synopsis-h">Synopsis</h2>
       <p class="lead"><i>Working Musician: Bach Plays the Berkshires</i> is a short film about the evolving significance of J.S. Bach&rsquo;s music in today&rsquo;s culture, told through the lens of the Berkshire Bach Society.</p>
@@ -201,7 +217,7 @@
   </section>
 -->
   <!-- SCREENINGS: one <li> per screening; move entries to Past after they happen -->
-  <section class="screenings" aria-labelledby="screenings-h">
+  <section id="screenings" class="screenings" aria-labelledby="screenings-h">
     <div class="wrap">
       <h2 class="label" id="screenings-h">Upcoming Screenings</h2>
       <ul>
