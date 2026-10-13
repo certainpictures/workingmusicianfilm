@@ -1,0 +1,25 @@
+/* Bach game section. Uses the page's colour and font variables. */
+#game { text-align: left; }
+.bg { max-width: 44rem; margin: 0 auto; }
+.bg__title { font-family: var(--serif); font-weight: var(--serif-weight, 500); font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; color: var(--navy); }
+.bg__intro { margin-top: .5rem; color: var(--soft); }
+.bg__card { margin-top: 2rem; background: var(--navy); color: var(--ivory); padding: clamp(1.5rem, 4vw, 2.5rem); }
+.bg__progress { font-size: .85rem; color: rgba(253,251,239,.6); letter-spacing: .04em; }
+.bg__prompt { margin-top: .75rem; font-family: var(--serif); font-weight: var(--serif-weight, 500); font-size: clamp(1.3rem, 2.4vw, 1.7rem); line-height: 1.3; }
+.bg__choices { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: .6rem; }
+.bg__btn { font: inherit; font-size: 1rem; color: var(--ivory); background: transparent; border: 1px solid rgba(253,251,239,.55); padding: .6rem 1.4rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.bg__btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+.bg__btn:disabled { cursor: default; opacity: .45; }
+.bg__btn.is-right { background: var(--gold); border-color: var(--gold); color: var(--navy); opacity: 1; }
+.bg__btn.is-picked { opacity: 1; text-decoration: line-through; }
+.bg__choices--grid .bg__btn { padding: .6rem 1rem; min-width: 4.5rem; }
+.bg__audio { margin-top: 1.25rem; width: 100%; }
+.bg__reveal { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(253,251,239,.2); }
+.bg__verdict { font-family: var(--serif); font-weight: var(--serif-weight, 500); font-size: 1.25rem; color: var(--gold); }
+.bg__reveal p + p { margin-top: .5rem; }
+.bg__next { margin-top: 1.5rem; font: inherit; font-size: .95rem; background: var(--gold); color: var(--navy); border: 0; padding: .65rem 1.4rem; cursor: pointer; }
+.bg__next:hover { filter: brightness(1.08); }
+.bg__end-links { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; align-items: center; }
+.bg__end-links a { color: var(--ivory); text-decoration-color: rgba(253,251,239,.5); }
+.bg__end-links a:hover { color: var(--gold); }
+.bg__again { font: inherit; font-size: .95rem; background: none; color: var(--ivory); border: 1px solid rgba(253,251,239,.55); padding: .6rem 1.2rem; cursor: pointer; }
