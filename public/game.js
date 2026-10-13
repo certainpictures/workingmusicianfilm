@@ -21,14 +21,14 @@
           reveal: "At the king's palace in Potsdam in 1747, Bach improvised a three-part fugue on the royal theme. Back home in Leipzig, he built a whole collection on it, The Musical Offering, and sent it to the king."
         },
         {
-          prompt: "In Leipzig, Bach's job was to compose whenever inspiration struck.",
+          prompt: "In his lifetime, Bach was famous across Europe as a composer.",
           answer: false,
-          reveal: "He worked for the town council. In his first years there he wrote a new cantata for church services almost every week, while also teaching at the choir school."
+          reveal: "He was known mainly as an organist and keyboard player, admired for his improvising and often called in to test new organs. Most of his music was never published while he was alive, and it took most of a century after his death for audiences to realize how big a composer he was."
         },
         {
-          prompt: "Bach wrote the Brandenburg Concertos for the city of Brandenburg's orchestra.",
+          prompt: "A harpsichord can hold its tuning for weeks.",
           answer: false,
-          reveal: "In 1721 he sent them to the Margrave of Brandenburg, with a dedication that reads a lot like a job application. There's no record the Margrave ever had them performed."
+          reveal: "Its strings drift with every change in temperature and humidity, sometimes within hours."
         },
         {
           prompt: "During the Second World War, a librarian saved the original Brandenburg manuscript from destruction.",
@@ -145,8 +145,8 @@
     });
     let verdict;
     if (legend) verdict = "Legend.";
-    else if (isNumbered) verdict = (right ? "Yes, " : "Not quite. It's ") + "No. " + q.answer + ".";
-    else verdict = (right ? "Right, it\u2019s " : "Not quite. It\u2019s ") + (q.answer ? "true." : "false.");
+    else if (isNumbered) verdict = (right ? "Yes, " : "It's ") + "No. " + q.answer + ".";
+    else verdict = (right ? "Right, it\u2019s " : "It\u2019s ") + (q.answer ? "true." : "false.");
     const last = i === game.questions.length - 1;
     const reveal = card.querySelector(".bg__reveal");
     reveal.innerHTML =
